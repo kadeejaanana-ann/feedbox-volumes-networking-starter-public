@@ -1,24 +1,22 @@
-# FeedBox — volumes and networking starter
+# FeedBox volumes and networking starter
 
-Repository: https://github.com/kalviumcommunity/feedbox-volumes-networking-starter
+FeedBox is a minimal feedback collector with PostgreSQL (`db`), Express (`api`), and an Nginx-served frontend (`web`).
 
-FeedBox is a minimal feedback collector: a PostgreSQL database, an Express API, and a static Nginx frontend running as a three-service Docker Compose stack.
+## Project structure
 
-## What is in this repository
-
-```
-├── server.js          ← Express API  (GET /api/messages, POST /api/messages)
-├── Dockerfile         ← API image
+```text
+├── server.js
+├── Dockerfile
 ├── package.json
-├── docker-compose.yml ← db, api, web with a named volume for PostgreSQL
-├── .env.example       ← copy to .env before running
-├── .dockerignore
-├── client/
-│   ├── Dockerfile     ← Nginx image
-│   └── index.html     ← frontend
+├── package-lock.json
+├── docker-compose.yml
+├── .env.example
+└── client/
+    ├── Dockerfile
+    └── index.html
 ```
 
-## Run the stack
+## Run the starter
 
 ```bash
 cp .env.example .env
@@ -28,18 +26,19 @@ docker compose up --build
 - API: http://localhost:5000/api/messages
 - Frontend: http://localhost:3000
 
-## Create a message
+## Assignment scope
+
+Complete the Compose configuration by:
+
+1. adding the `feedbox_data` named volume for PostgreSQL;
+2. adding isolated `frontend` and `backend` networks; and
+3. creating `docker-compose.override.yml` for API hot-reload.
+
+Validate your work with:
 
 ```bash
-curl -X POST http://localhost:5000/api/messages \
-  -H "Content-Type: application/json" \
-  -d '{"text": "Hello FeedBox"}'
+docker compose config -q
+docker compose up --build
 ```
 
-## Your task
-
-Follow the assignment brief to:
-
-1. Prove that the named volume keeps PostgreSQL data alive across `docker compose down` and `docker compose up`.
-2. Create `docker-compose.override.yml` with a bind mount for `server.js` and `nodemon` for hot-reload.
-3. Explain in your PR description why `DATABASE_URL` uses `db` as the hostname and what `localhost` would do instead.
+Do not commit `.env` or `node_modules`.
