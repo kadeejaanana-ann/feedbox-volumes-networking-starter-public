@@ -26,15 +26,16 @@ docker compose up --build
 - API: http://localhost:5000/api/messages
 - Frontend: http://localhost:3000
 
-## Assignment scope
+## Before changing anything
 
-Complete the Compose configuration by:
+1. Open `docker-compose.yml` and trace how each service currently starts.
+2. Identify where PostgreSQL writes data inside its container.
+3. Check which services genuinely need to communicate with each other.
+4. Notice which development behaviour should not belong in the main Compose file.
 
-1. adding the `feedbox_data` named volume for PostgreSQL;
-2. adding isolated `frontend` and `backend` networks; and
-3. creating `docker-compose.override.yml` for API hot-reload.
+Use the assignment brief's expected behaviours as your completion checklist. Choose the required Compose configuration yourself.
 
-Validate your work with:
+Validate the final configuration with:
 
 ```bash
 docker compose config -q
