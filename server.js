@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import pg from "pg";
 
@@ -5,6 +6,7 @@ const app = express();
 const port = Number(process.env.PORT || 5000);
 const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 
 // Retry connecting and creating the table until PostgreSQL is ready
