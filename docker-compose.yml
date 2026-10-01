@@ -3,6 +3,10 @@ services:
     image: postgres:15
     env_file:
       - .env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - db_net
 
   api:
     build: .
@@ -12,6 +16,9 @@ services:
       - .env
     depends_on:
       - db
+    networks:
+      - web_net
+      - db_net
 
   web:
     build: ./client
@@ -19,3 +26,12 @@ services:
       - "3000:80"
     depends_on:
       - api
+    networks:
+      - web_net
+
+volumes:
+  db_data:
+
+networks:
+  web_net:
+  db_net:

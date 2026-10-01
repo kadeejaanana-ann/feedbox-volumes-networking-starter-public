@@ -1,0 +1,6 @@
+services:
+  api:
+    command: npx nodemon server.js
+    volumes:
+      - .:/app
+      - /app/node_modules
